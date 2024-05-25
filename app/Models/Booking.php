@@ -12,7 +12,7 @@ class Booking extends Model
     protected $fillable = [
         'booking_entity_object_id',
         'user_id',
-        'booking_time',
+        'booking',
         'start_time',
         'end_time',
         'status',

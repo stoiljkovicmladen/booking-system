@@ -13,12 +13,11 @@ class BookingEntityObject extends Model
         'booking_entity_id',
         'name',
         'type',
-        'is_available',
     ];
 
     public function bookingEntity()
     {
         return $this->belongsTo(BookingEntity::class);
     }
-    
+
 }
