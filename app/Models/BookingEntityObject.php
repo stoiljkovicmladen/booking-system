@@ -10,7 +10,6 @@ class BookingEntityObject extends Model
     use HasFactory;
 
     protected $fillable = [
-        'booking_entity_id',
         'name',
         'type',
     ];
@@ -19,5 +18,4 @@ class BookingEntityObject extends Model
     {
         return $this->belongsTo(BookingEntity::class);
     }
-
 }

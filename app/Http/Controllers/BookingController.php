@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Jobs\ProcessBooking;
 use Illuminate\Http\Request;
 
@@ -27,5 +26,4 @@ class BookingController extends Controller
 
         return response()->json(['message' => 'Booking is being processed.']);
     }
-    
 }

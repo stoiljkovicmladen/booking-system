@@ -22,5 +22,4 @@ class BookingEntity extends Model
     {
         return $this->hasMany(BookingEntityObject::class);
     }
-    
 }

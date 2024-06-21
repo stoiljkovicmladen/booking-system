@@ -1,11 +1,11 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\BookingEntityController;
 use App\Http\Controllers\BookingEntityObjectController;
-
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
@@ -17,4 +17,5 @@ Route::get('/user', function (Request $request) {
 
 Route::apiResource('booking-entities', BookingEntityController::class)->middleware('auth:sanctum');
 Route::apiResource('booking-entity-objects', BookingEntityObjectController::class)->middleware('auth:sanctum');
-// Route::apiResource('bookings', BookingController::class)->middleware('auth:sanctum');
+
+Route::post('book', [BookingController::class, 'book'])->middleware('auth:sanctum');

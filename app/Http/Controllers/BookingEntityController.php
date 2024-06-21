@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\BookingEntity;
+use Illuminate\Http\Request;
 
 class BookingEntityController extends Controller
 {
-    
     // Get All Booking Entities
     public function index()
     {
@@ -28,6 +27,4 @@ class BookingEntityController extends Controller
 
         return BookingEntity::create($request->all());
     }
-
-
 }

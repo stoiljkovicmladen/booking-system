@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Events\BookingProcessed;
 use App\Models\Booking;
 use App\Models\BookingEntityObject;
 use Illuminate\Bus\Queueable;
@@ -34,27 +35,35 @@ class ProcessBooking implements ShouldQueue
      */
     public function handle()
     {
-        // Perform booking logic
+        Log::info('Processing booking', $this->bookingData);
+
         $bookingEntityObject = BookingEntityObject::find($this->bookingData['object_id']);
 
-        if ($bookingEntityObject->is_available) {
+        if (! $bookingEntityObject) {
+            Log::error('Booking entity object not found', ['object_id' => $this->bookingData['object_id']]);
+        }
+
+        try {
             $booking = Booking::create([
                 'booking_entity_object_id' => $this->bookingData['object_id'],
+                'booking_entity_id' => $bookingEntityObject->bookingEntity->id,
                 'user_id' => $this->bookingData['user_id'],
-                'booking_time' => now(),
+                'booking_date' => now(),
                 'start_time' => $this->bookingData['start_time'],
                 'end_time' => $this->bookingData['end_time'],
                 'status' => 'confirmed',
             ]);
-
-            // Mark the object as not available
-            $bookingEntityObject->is_available = false;
-            $bookingEntityObject->save();
-
+    
+            // TODO: Payment processing
+    
+            // Dispatch the event after processing the booking
+            event(new BookingProcessed($booking));
+    
             Log::info('Booking processed successfully', ['booking_id' => $booking->id]);
-        } else {
-            Log::error('Booking failed: Object not available', ['object_id' => $this->bookingData['object_id']]);
+        } catch (\Exception $e) {
+            Log::error('Error processing booking', ['message' => $e->getMessage()]);
         }
+        
+
     }
 }
-

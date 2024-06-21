@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\BookingEntityObject;
+use Illuminate\Http\Request;
 
 class BookingEntityObjectController extends Controller
 {
-
     // Index Booking Entity Object
     public function index()
     {
@@ -25,5 +24,4 @@ class BookingEntityObjectController extends Controller
 
         return BookingEntityObject::create($request->all());
     }
-
 }

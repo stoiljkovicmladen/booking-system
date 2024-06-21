@@ -11,8 +11,9 @@ class Booking extends Model
 
     protected $fillable = [
         'booking_entity_object_id',
+        'booking_entity_id',
         'user_id',
-        'booking',
+        'booking_date',
         'start_time',
         'end_time',
         'status',
@@ -27,5 +28,4 @@ class Booking extends Model
     {
         return $this->belongsTo(User::class);
     }
-    
 }
